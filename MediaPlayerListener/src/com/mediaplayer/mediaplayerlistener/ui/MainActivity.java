@@ -1,21 +1,16 @@
 package com.mediaplayer.mediaplayerlistener.ui;
 
-import java.util.List;
-
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.AndroidCharacter;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.mediaplayer.mediaplayerlistener.R;
 import com.mediaplayer.mediaplayerlistener.service.WJMediaPlayerService;
@@ -24,18 +19,6 @@ import com.mediaplayer.mediaplayerlistener.utils.Tools;
 public class MainActivity extends Activity implements OnClickListener {
 
 	private Context mContext;
-
-	private String getTopActivity() {
-		ActivityManager manager = (ActivityManager) mContext
-				.getSystemService(ACTIVITY_SERVICE);
-		List<RunningTaskInfo> runningTaskInfos = manager.getRunningTasks(1);
-		if (runningTaskInfos != null) {
-			return (runningTaskInfos.get(0).topActivity.getClassName())
-					.toString();
-		} else {
-			return null;
-		}
-	}
 
 	@Override
 	protected void onPause() {
@@ -52,7 +35,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		//Log.e("liujw","######################onKeyDown : " + event.getKeyCode());
+		Toast.makeText(mContext, "############event.getKeyCode() : "+event.getKeyCode(), 1).show() ;
 		if (event.getKeyCode() == 22) {// enter key
 			Intent intentKey01 = new Intent(WJMediaPlayerService.CTL_ACTION);
 			intentKey01.putExtra("control", 5);
@@ -80,10 +63,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		mContext = MainActivity.this;
 		
 		String date = Tools.getSystemTime() ;
-		if(Integer.valueOf(date) > 20160731){
-			 android.os.Process.killProcess(android.os.Process.myPid());  
-	         System.exit(1);  
-		}
 		
 		initView();
 
@@ -123,9 +102,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_pause:
-			Intent intentKey01 = new Intent(WJMediaPlayerService.CTL_ACTION);
+			/*Intent intentKey01 = new Intent(WJMediaPlayerService.CTL_ACTION);
 			intentKey01.putExtra("control", 3);
-			sendBroadcast(intentKey01);
+			sendBroadcast(intentKey01);*/
+			Intent intentKey02 = new Intent(mContext,LocalGrammarActivity.class);
+			startActivity(intentKey02) ;
+			
 			break;
 		default:
 			break;

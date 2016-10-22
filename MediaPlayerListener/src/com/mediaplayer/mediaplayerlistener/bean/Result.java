@@ -12,6 +12,16 @@ public class Result implements Serializable {
 	private String input ;
 	
 	private Post post ;
+	
+	private double conf ;
+
+	public double getConf() {
+		return conf;
+	}
+
+	public void setConf(double conf) {
+		this.conf = conf;
+	}
 
 	public Post getPost() {
 		return post;
